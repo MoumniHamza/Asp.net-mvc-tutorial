@@ -15,6 +15,7 @@ namespace MvcStore.Controllers
         private MvcStoreContext db = new MvcStoreContext();
 
         // GET: Reviews
+        [Route("Review/All")]
         public ActionResult Index()
         {
             var reviews = db.Reviews.Include(r => r.Album);
@@ -22,6 +23,7 @@ namespace MvcStore.Controllers
         }
 
         // GET: Reviews/Details/5
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace MvcStore.Controllers
         }
 
         // GET: Reviews/Create
+        [Authorize()]
         public ActionResult Create()
         {
             ViewBag.AlbumID = new SelectList(db.Albums, "AlbumID", "Title");

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MvcMovie.Controllers
+namespace WorkingWithViews.Controllers
 {
-    public class HelloWorldController : Controller
+    public class FirtstViewController : Controller
     {
-        // GET: HelloWorld
+        // GET: FirtstView
         public ActionResult Index()
         {
             return View();

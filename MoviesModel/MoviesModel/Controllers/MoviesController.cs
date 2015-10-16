@@ -15,9 +15,15 @@ namespace MoviesModel.Controllers
         private MovieDbContext db = new MovieDbContext();
 
         // GET: Movies
-        public ActionResult Index()
+        public ActionResult Index(string searchstring)
         {
-            return View(db.Movies.ToList());
+            var movies = from m in db.Movies
+                         select m;
+             if(!String.IsNullOrEmpty(searchstring))
+            {
+                movies = movies.Where(m => m.Title.Contains(searchstring));
+            }
+            return View(movies);
         }
 
         // GET: Movies/Details/5
@@ -46,7 +52,7 @@ namespace MoviesModel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public ActionResult Create([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating,Rank")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +84,7 @@ namespace MoviesModel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public ActionResult Edit([Bind(Include = "ID,Title,ReleaseDate,Genre,Price,Rating,Rank")] Movie movie)
         {
             if (ModelState.IsValid)
             {
